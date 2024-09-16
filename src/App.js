@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import ValueDisplay from "./components/ValueDisplay";
 
 function App() {
+  const [userValue, setUserValue] = useState("");
+  const [submittedValue, setSubmittedValue] = useState("");
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      setSubmittedValue(userValue);
+      setUserValue("");
+    }
+  }
+  console.log(submittedValue);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Current and Previos Value</h1>
+      <input
+        type="text"
+        value={userValue}
+        onChange={(e) => setUserValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
+
+      <ValueDisplay value={submittedValue} />
     </div>
   );
 }
